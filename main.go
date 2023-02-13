@@ -31,11 +31,6 @@ func main() {
 func requestHandler(ctx *fasthttp.RequestCtx) {
 	val, ok := os.LookupEnv("KEY")
 
-	if ok && string(ctx.Request.Header.Peek("PROXYKEY")) != val {
-		ctx.SetStatusCode(407)
-		ctx.SetBody([]byte("Missing or invalid PROXYKEY header."))
-		return
-	}
 
 	if len(strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 2)) < 2 {
 		ctx.SetStatusCode(400)
@@ -68,13 +63,12 @@ func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	defer fasthttp.ReleaseRequest(req)
 	req.Header.SetMethod(string(ctx.Method()))
 	url := strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 2)
-	req.SetRequestURI("https://" + url[0] + ".roblox.com/" + url[1])
+	req.SetRequestURI("https://discordapp.com/api/" + url[1])
 	req.SetBody(ctx.Request.Body())
 	ctx.Request.Header.VisitAll(func (key, value []byte) {
 		req.Header.Set(string(key), string(value))
 	})
-	req.Header.Set("User-Agent", "RoProxy")
-	req.Header.Del("Roblox-Id")
+	req.Header.Set("User-Agent", "BDP (http://example.com), v0.0.1")
 	resp := fasthttp.AcquireResponse()
 
 	err := client.Do(req, resp)
