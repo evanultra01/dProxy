@@ -29,8 +29,6 @@ func main() {
 }
 
 func requestHandler(ctx *fasthttp.RequestCtx) {
-	val, ok := os.LookupEnv("KEY")
-
 
 	if len(strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 2)) < 2 {
 		ctx.SetStatusCode(400)
