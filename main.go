@@ -30,12 +30,6 @@ func main() {
 
 func requestHandler(ctx *fasthttp.RequestCtx) {
 
-	if len(strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 2)) < 2 {
-		ctx.SetStatusCode(400)
-		ctx.SetBody([]byte("URL format invalid." + string(ctx.Request.Header.RequestURI())))
-		return
-	}
-
 	response := makeRequest(ctx, 1)
 
 	defer fasthttp.ReleaseResponse(response)
