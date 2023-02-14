@@ -32,7 +32,7 @@ func requestHandler(ctx *fasthttp.RequestCtx) {
 
 	if len(strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 2)) < 2 {
 		ctx.SetStatusCode(400)
-		ctx.SetBody([]byte("URL format invalid."))
+		ctx.SetBody([]byte("URL format invalid." + "https://discordapp.com/api/" + url[1]))
 		return
 	}
 
@@ -60,7 +60,7 @@ func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	req := fasthttp.AcquireRequest()
 	defer fasthttp.ReleaseRequest(req)
 	req.Header.SetMethod(string(ctx.Method()))
-	url := strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 2)
+	url := strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 1)
 	req.SetRequestURI("https://discordapp.com/api/" + url[1])
 	req.SetBody(ctx.Request.Body())
 	ctx.Request.Header.VisitAll(func (key, value []byte) {
