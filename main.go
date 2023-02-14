@@ -53,7 +53,7 @@ func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	req := fasthttp.AcquireRequest()
 	defer fasthttp.ReleaseRequest(req)
 	req.Header.SetMethod(string(ctx.Method()))
-	req.SetRequestURI("https://discordapp.com/" + string(ctx.Request.Header.RequestURI()))
+	req.SetRequestURI("https://discordapp.com" + string(ctx.Request.Header.RequestURI()))
 	req.SetBody(ctx.Request.Body())
 	ctx.Request.Header.VisitAll(func (key, value []byte) {
 		req.Header.Set(string(key), string(value))
