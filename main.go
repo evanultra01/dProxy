@@ -6,7 +6,6 @@ import (
 	"os"
 	"github.com/valyala/fasthttp"
 	"strconv"
-	"strings"
 )
 
 var timeout, _ = strconv.Atoi(os.Getenv("TIMEOUT"))
