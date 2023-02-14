@@ -61,12 +61,11 @@ func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	defer fasthttp.ReleaseRequest(req)
 	req.Header.SetMethod(string(ctx.Method()))
 	url := strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 1)
-	req.SetRequestURI("https://discordapp.com/api/" + url[1])
+	req.SetRequestURI("https://discordapp.com/" + url[0] + url[1])
 	req.SetBody(ctx.Request.Body())
 	ctx.Request.Header.VisitAll(func (key, value []byte) {
 		req.Header.Set(string(key), string(value))
 	})
-	print("https://discordapp.com/api/" + url[1])
 	req.Header.Set("User-Agent", "BDP (http://example.com), v0.0.1")
 	resp := fasthttp.AcquireResponse()
 
