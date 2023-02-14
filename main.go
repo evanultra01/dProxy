@@ -45,7 +45,7 @@ func requestHandler(ctx *fasthttp.RequestCtx) {
 func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	if attempt > retries {
 		resp := fasthttp.AcquireResponse()
-		resp.SetBody([]byte("Proxy failed to connect. Please try again."))
+		resp.SetBody([]byte("Proxy failed to connect. Please try again. debug:" + string(strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 1))))
 		resp.SetStatusCode(500)
 
 		return resp
