@@ -45,7 +45,7 @@ func requestHandler(ctx *fasthttp.RequestCtx) {
 func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	if attempt > retries {
 		resp := fasthttp.AcquireResponse()
-		resp.SetBody([]byte("Proxy failed to connect. Please try again. debug:" + string(strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 1))))
+		resp.SetBody([]byte("Proxy failed to connect. Please try again. debug: " + "https://discordapp.com/" + string(ctx.Request.Header.RequestURI()))
 		resp.SetStatusCode(500)
 
 		return resp
@@ -55,7 +55,7 @@ func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	defer fasthttp.ReleaseRequest(req)
 	req.Header.SetMethod(string(ctx.Method()))
 	url := strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 1)
-	req.SetRequestURI("https://discordapp.com/" + url[0] + url[1])
+	req.SetRequestURI("https://discordapp.com/" + string(ctx.Request.Header.RequestURI())
 	req.SetBody(ctx.Request.Body())
 	ctx.Request.Header.VisitAll(func (key, value []byte) {
 		req.Header.Set(string(key), string(value))
