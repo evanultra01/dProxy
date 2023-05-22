@@ -1,10 +1,10 @@
 {
-    "name": "RoProxy Lite",
-    "description": "A modified version of RoProxy made for self-hosting.",
-    "repository": "https://github.com/halffalse/roproxy-lite",
+    "name": "dProxy",
+    "description": "A modified version of RoProxy Lite made for self-hosting.",
+    "repository": "https://github.com/evanultra01/dProxy",
     "env": {
         "KEY": {
-            "description": "The key used to access proxy.",
+            "description": "The key used to access proxy. Not implemented in dProxy but may be in the future.",
             "generator": "secret"
         },
         "TIMEOUT": {
